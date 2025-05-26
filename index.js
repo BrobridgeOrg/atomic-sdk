@@ -2,7 +2,11 @@ const Atomic = require('./atomic');
 const { SessionManager } = require('./session_manager');
 const Context = require('./context');
 
-let ctx = new Context();
+let ctx = global.atomicContext;
+if (!ctx) {
+  ctx = new Context();
+  global.atomicContext = ctx;
+}
 
 module.exports = {
   getContext() {
